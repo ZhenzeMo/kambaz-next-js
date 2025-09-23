@@ -53,6 +53,44 @@ export default function Modules() {
               </li>
             </ul>
           </li>
+          <li className="wd-module">
+            <div className="wd-title">Week 2, Lecture 1 - Styling with CSS</div>
+            <ul className="wd-lessons">
+              <li className="wd-lesson">
+                <span className="wd-title">LEARNING OBJECTIVES</span>
+                <ul className="wd-content">
+                  <li className="wd-content-item">Learn CSS fundamentals</li>
+                  <li className="wd-content-item">Style web pages with CSS</li>
+                </ul>
+              </li>
+              <li className="wd-lesson">
+                <span className="wd-title">SLIDES</span>
+                <ul className="wd-content">
+                  <li className="wd-content-item">CSS Selectors and Properties</li>
+                  <li className="wd-content-item">Box Model and Layout</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li className="wd-module">
+            <div className="wd-title">Week 2, Lecture 2 - JavaScript Basics</div>
+            <ul className="wd-lessons">
+              <li className="wd-lesson">
+                <span className="wd-title">LEARNING OBJECTIVES</span>
+                <ul className="wd-content">
+                  <li className="wd-content-item">Understand JavaScript syntax</li>
+                  <li className="wd-content-item">Work with DOM manipulation</li>
+                </ul>
+              </li>
+              <li className="wd-lesson">
+                <span className="wd-title">SLIDES</span>
+                <ul className="wd-content">
+                  <li className="wd-content-item">Variables and Functions</li>
+                  <li className="wd-content-item">Event Handling</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
   );}
