@@ -12,7 +12,8 @@ export default function CourseNavigation() {
     <div id="wd-courses-navigation" className="wd list-group fs-5 rounded-0">
       {links.map((link) => {
         const path = link === "People" ? `/Courses/${cid}/People/Table` : `/Courses/${cid}/${link}`;
-        const active = pathname?.includes(link);
+        // Don't show Assignments as selected when in assignment editor
+        const active = pathname?.includes(link) && !(link === "Assignments" && pathname?.includes("/Assignments/"));
         return (
           <Link key={link} href={path} id={`wd-course-${link.toLowerCase()}-link`}
             className={`list-group-item border-0 ${active ? "active" : "text-danger"}`}>

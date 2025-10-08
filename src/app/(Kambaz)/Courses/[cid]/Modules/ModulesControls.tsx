@@ -1,8 +1,17 @@
+"use client";
+
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "react-bootstrap";
-import { FaPlus } from "react-icons/fa6";
+import { FaPlus, FaEye, FaEyeSlash, FaExpand, FaCompress } from "react-icons/fa6";
 import GreenCheckmark from "./GreenCheckmark";
+import { useSidebar } from "../SidebarProvider";
 
 export default function ModulesControls() {
+  const { sidebarVisible, setSidebarVisible } = useSidebar();
+
+  const toggleSidebar = () => {
+    setSidebarVisible(!sidebarVisible);
+  };
+
   return (
     <div id="wd-modules-controls" className="text-nowrap">
       <Button variant="danger" size="lg" className="me-1 float-end" id="wd-add-module-btn">
@@ -24,15 +33,22 @@ export default function ModulesControls() {
             <GreenCheckmark /> Publish modules only
           </DropdownItem>
           <DropdownItem id="wd-unpublish-all-modules-and-items">
-            Unpublish all modules and items
-          </DropdownItem>
-          <DropdownItem id="wd-unpublish-modules-only">
-            Unpublish modules only
+            <FaEyeSlash className="me-2" /> Unpublish all modules and items
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
+      <Button 
+        variant="secondary" 
+        size="lg" 
+        className="me-2 float-end" 
+        id="wd-width-control"
+        onClick={toggleSidebar}
+      >
+        {sidebarVisible ? <FaCompress className="me-2" /> : <FaExpand className="me-2" />}
+        {sidebarVisible ? "Narrowest" : "Widest"}
+      </Button>
       <Button variant="secondary" size="lg" className="me-2 float-end" id="wd-view-progress">
-        View Progress
+        <FaEye className="me-2" /> View Progress
       </Button>
       <Button variant="secondary" size="lg" className="me-2 float-end" id="wd-collapse-all">
         Collapse All
