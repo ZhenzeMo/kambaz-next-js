@@ -1,4 +1,5 @@
 import { Nav, NavItem, NavLink, Card, Button } from "react-bootstrap";
+import Image from "next/image";
 
 export default function BootstrapNavigation() {
   return (
@@ -24,9 +25,9 @@ export default function BootstrapNavigation() {
       <div id="wd-css-navigating-with-cards">
         <h2>Cards</h2>
         <Card style={{ width: "18rem" }}>
-          <img className="card-img-top" src="/Users/zhenzemo/neu/fall25/cs5610/kambaz-next-js/public/images/stacked.jpg" alt="Stacking Starship" />
+          <Image className="card-img-top" src="/images/stacked.jpg" alt="Stacking Starship" width={50} height={100} />
           <div className="card-body">
-            <h5 className="card-title">Stacking Starship</h5>
+            <h5 className="card-title">Stacking </h5>
             <p className="card-text">
               Stacking the most powerful rocket in history. Mars or bust!
             </p>
