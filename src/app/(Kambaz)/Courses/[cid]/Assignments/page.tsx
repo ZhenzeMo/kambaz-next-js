@@ -21,7 +21,7 @@ export default function Assignments() {
             <AssignmentGroupControls />
           </div>
           <ListGroup className="rounded-0">
-            <ListGroupItem className="wd-assignment-list-item p-3 ps-1 border-start border-success border-3">
+            <ListGroupItem className="wd-assignment-list-item p-3 ps-1" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <div className="d-flex align-items-center">
                 <BsGripVertical className="me-2 fs-3" />
                 <MdOutlineAssignment className="me-3 fs-3 text-success" />
@@ -42,7 +42,7 @@ export default function Assignments() {
               </div>
             </ListGroupItem>
 
-            <ListGroupItem className="wd-assignment-list-item p-3 ps-1 border-start border-success border-3">
+            <ListGroupItem className="wd-assignment-list-item p-3 ps-1" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <div className="d-flex align-items-center">
                 <BsGripVertical className="me-2 fs-3" />
                 <MdOutlineAssignment className="me-3 fs-3 text-success" />
@@ -63,7 +63,7 @@ export default function Assignments() {
               </div>
             </ListGroupItem>
 
-            <ListGroupItem className="wd-assignment-list-item p-3 ps-1 border-start border-success border-3">
+            <ListGroupItem className="wd-assignment-list-item p-3 ps-1" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <div className="d-flex align-items-center">
                 <BsGripVertical className="me-2 fs-3" />
                 <MdOutlineAssignment className="me-3 fs-3 text-success" />

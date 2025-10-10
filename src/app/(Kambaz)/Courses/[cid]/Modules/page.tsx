@@ -18,61 +18,61 @@ export default function Modules() {
             <ModuleControlButtons />
           </div>
           <ListGroup className="wd-lessons rounded-0">
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">LEARNING OBJECTIVES</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">Introduction to the course</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">Learn what is Web Development</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">READING</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">Full Stack Developer - Chapter 1 - Introduction</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">Full Stack Developer - Chapter 2 - Creating User Interfaces</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">SLIDES</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">Introduction to Web Development</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">Creating an HTTP server with Node.js</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">Creating a React Application</span>
@@ -89,43 +89,43 @@ export default function Modules() {
             <ModuleControlButtons />
           </div>
           <ListGroup className="wd-lessons rounded-0">
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">LEARNING OBJECTIVES</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">Learn how to create user interfaces with HTML</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">Deploy the assignment to Netlify</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">SLIDES</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">Introduction to HTML and the DOM</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">Formatting Web content with Headings and Paragraphs</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">Formatting content with Lists and Tables</span>
@@ -142,37 +142,37 @@ export default function Modules() {
             <ModuleControlButtons />
           </div>
           <ListGroup className="wd-lessons rounded-0">
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">LEARNING OBJECTIVES</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">Learn CSS fundamentals</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">Style web pages with CSS</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">SLIDES</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">CSS Selectors and Properties</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">Box Model and Layout</span>
@@ -189,37 +189,37 @@ export default function Modules() {
             <ModuleControlButtons />
           </div>
           <ListGroup className="wd-lessons rounded-0">
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">LEARNING OBJECTIVES</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">Understand JavaScript syntax</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">Work with DOM manipulation</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">SLIDES</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">Variables and Functions</span>
               <LessonControlButtons />
             </ListGroupItem>
-            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white border-start border-success border-3 d-flex align-items-center">
+            <ListGroupItem className="wd-lesson p-3 ps-1 bg-white d-flex align-items-center" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
               <BsGripVertical className="me-2 fs-3" />
               <FaFileAlt className="me-2 text-success" />
               <span className="flex-grow-1">Event Handling</span>
