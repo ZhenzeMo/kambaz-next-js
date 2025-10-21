@@ -1,3 +1,6 @@
+"use client";
+import { useParams } from "next/navigation";
+import { assignments } from "../../../Database";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { BsGripVertical } from "react-icons/bs";
 import { IoMdArrowDropdown } from "react-icons/io";
@@ -7,7 +10,15 @@ import AssignmentControls from "./AssignmentControls";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 import AssignmentGroupControls from "./AssignmentGroupControls";
 
+interface Assignment {
+  _id: string;
+  title: string;
+  course: string;
+}
+
 export default function Assignments() {
+  const { cid } = useParams();
+  
   return (
     <div id="wd-assignments">
       <AssignmentControls />
@@ -21,68 +32,30 @@ export default function Assignments() {
             <AssignmentGroupControls />
           </div>
           <ListGroup className="rounded-0">
-            <ListGroupItem className="wd-assignment-list-item p-3 ps-1" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
-              <div className="d-flex align-items-center">
-                <BsGripVertical className="me-2 fs-3" />
-                <MdOutlineAssignment className="me-3 fs-3 text-success" />
-                <div className="flex-grow-1">
-                  <Link 
-                    href="/Courses/1234/Assignments/123"
-                    className="wd-assignment-link text-dark fw-bold text-decoration-none"
-                  >
-                    A1
-                  </Link>
-                  <div className="text-muted small">
-                    <span className="text-danger">Multiple Modules</span> | <strong>Not available until</strong> May 6 at 12:00am | 
-                    <br />
-                    <strong>Due</strong> May 13 at 11:59pm | 100 pts
+            {assignments
+              .filter((assignment: Assignment) => assignment.course === cid)
+              .map((assignment: Assignment) => (
+                <ListGroupItem key={assignment._id} className="wd-assignment-list-item p-3 ps-1" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
+                  <div className="d-flex align-items-center">
+                    <BsGripVertical className="me-2 fs-3" />
+                    <MdOutlineAssignment className="me-3 fs-3 text-success" />
+                    <div className="flex-grow-1">
+                      <Link 
+                        href={`/Courses/${cid}/Assignments/${assignment._id}`}
+                        className="wd-assignment-link text-dark fw-bold text-decoration-none"
+                      >
+                        {assignment.title}
+                      </Link>
+                      <div className="text-muted small">
+                        <span className="text-danger">Multiple Modules</span> | <strong>Not available until</strong> May 6 at 12:00am | 
+                        <br />
+                        <strong>Due</strong> May 13 at 11:59pm | 100 pts
+                      </div>
+                    </div>
+                    <AssignmentControlButtons />
                   </div>
-                </div>
-                <AssignmentControlButtons />
-              </div>
-            </ListGroupItem>
-
-            <ListGroupItem className="wd-assignment-list-item p-3 ps-1" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
-              <div className="d-flex align-items-center">
-                <BsGripVertical className="me-2 fs-3" />
-                <MdOutlineAssignment className="me-3 fs-3 text-success" />
-                <div className="flex-grow-1">
-                  <Link 
-                    href="/Courses/1234/Assignments/124"
-                    className="wd-assignment-link text-dark fw-bold text-decoration-none"
-                  >
-                    A2
-                  </Link>
-                  <div className="text-muted small">
-                    <span className="text-danger">Multiple Modules</span> | <strong>Not available until</strong> May 13 at 12:00am | 
-                    <br />
-                    <strong>Due</strong> May 20 at 11:59pm | 100 pts
-                  </div>
-                </div>
-                <AssignmentControlButtons />
-              </div>
-            </ListGroupItem>
-
-            <ListGroupItem className="wd-assignment-list-item p-3 ps-1" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
-              <div className="d-flex align-items-center">
-                <BsGripVertical className="me-2 fs-3" />
-                <MdOutlineAssignment className="me-3 fs-3 text-success" />
-                <div className="flex-grow-1">
-                  <Link 
-                    href="/Courses/1234/Assignments/125"
-                    className="wd-assignment-link text-dark fw-bold text-decoration-none"
-                  >
-                    A3
-                  </Link>
-                  <div className="text-muted small">
-                    <span className="text-danger">Multiple Modules</span> | <strong>Not available until</strong> May 20 at 12:00am | 
-                    <br />
-                    <strong>Due</strong> May 27 at 11:59pm | 100 pts
-                  </div>
-                </div>
-                <AssignmentControlButtons />
-              </div>
-            </ListGroupItem>
+                </ListGroupItem>
+              ))}
           </ListGroup>
         </ListGroupItem>
       </ListGroup>

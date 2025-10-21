@@ -1,11 +1,31 @@
+"use client";
+import { useParams } from "next/navigation";
+import { assignments } from "../../../../Database";
+import { courses } from "../../../../Database";
 import { Form, Button, Row, Col } from "react-bootstrap";
+import Link from "next/link";
+
+interface Assignment {
+  _id: string;
+  title: string;
+  course: string;
+}
+
+interface Course {
+  _id: string;
+  name: string;
+}
 
 export default function AssignmentEditor() {
+  const { cid, aid } = useParams();
+  const assignment = assignments.find((a: Assignment) => a._id === aid && a.course === cid);
+  const course = courses.find((c: Course) => c._id === cid);
+  
   return (
     <div id="wd-assignments-editor" className="p-4">
-      {/* Breadcrumb - just course name */}
+      {/* Breadcrumb - course name */}
       <div className="mb-4">
-        <h4>CS5610</h4>
+        <h4>{course?.name}</h4>
       </div>
       
       <Form>
@@ -14,7 +34,7 @@ export default function AssignmentEditor() {
             <Form.Label htmlFor="wd-name">Assignment Name</Form.Label>
             <Form.Control 
               id="wd-name" 
-              defaultValue="A1" 
+              defaultValue={assignment?.title || ""} 
               type="text"
               className="form-control"
             />
@@ -136,11 +156,12 @@ The Kambas application should include a link to navigate back to the landing pag
                 <Col md={6}>
                   <Form.Label htmlFor="wd-due-date">Due</Form.Label>
                   <Form.Control 
-                    type="text"
+                    type="datetime-local"
                     id="wd-due-date"
-                    defaultValue="05/13/2024"
-                    placeholder="MM/DD/YYYY"
+                    defaultValue="2024-05-13T23:59"
                     className="form-control"
+                    style={{fontFamily: 'monospace'}}
+                    title="Select date and time - Month format depends on browser locale"
                   />
                 </Col>
               </Row>
@@ -149,22 +170,24 @@ The Kambas application should include a link to navigate back to the landing pag
                 <Col md={6} className="mb-3">
                   <Form.Label htmlFor="wd-available-from">Available from</Form.Label>
                   <Form.Control 
-                    type="text"
+                    type="datetime-local"
                     id="wd-available-from"
-                    defaultValue="05/06/2024"
-                    placeholder="MM/DD/YYYY"
+                    defaultValue="2024-05-06T00:00"
                     className="form-control"
+                    style={{fontFamily: 'monospace'}}
+                    title="Select date and time - Month format depends on browser locale"
                   />
                 </Col>
 
                 <Col md={6} className="mb-3">
                   <Form.Label htmlFor="wd-available-until">Until</Form.Label>
                   <Form.Control 
-                    type="text"
+                    type="datetime-local"
                     id="wd-available-until"
-                    defaultValue="05/20/2024"
-                    placeholder="MM/DD/YYYY"
+                    defaultValue="2024-05-20T23:59"
                     className="form-control"
+                    style={{fontFamily: 'monospace'}}
+                    title="Select date and time - Month format depends on browser locale"
                   />
                 </Col>
               </Row>
@@ -176,12 +199,16 @@ The Kambas application should include a link to navigate back to the landing pag
         <Row>
           <Col>
             <div className="d-flex justify-content-end">
-              <Button variant="secondary" className="me-2">
-                Cancel
-              </Button>
-              <Button variant="danger">
-                Save
-              </Button>
+              <Link href={`/Courses/${cid}/Assignments`}>
+                <Button variant="secondary" className="me-2">
+                  Cancel
+                </Button>
+              </Link>
+              <Link href={`/Courses/${cid}/Assignments`}>
+                <Button variant="danger">
+                  Save
+                </Button>
+              </Link>
             </div>
           </Col>
         </Row>
