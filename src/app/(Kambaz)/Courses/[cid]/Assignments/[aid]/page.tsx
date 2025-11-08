@@ -37,7 +37,7 @@ export default function AssignmentEditor() {
     ? null
     : (assignments.find((a: Assignment) => a._id === aid && a.course === cid) as Assignment | undefined);
   const course = courses.find((c: Course) => c._id === cid);
-  const isFaculty = currentUser?.role === "FACULTY" || currentUser?.role === "ADMIN";
+  const isFaculty = currentUser?.role === "FACULTY" || currentUser?.role === "ADMIN" || currentUser?.role === "TA";
   
   // Students can only view assignments, not edit
   const isReadOnly = !isFaculty && !isNew;

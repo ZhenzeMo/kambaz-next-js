@@ -15,7 +15,7 @@ export default function AssignmentControlButtons({
   onDelete,
 }: AssignmentControlButtonsProps) {
   const { currentUser } = useSelector((state: RootState) => state.accountReducer);
-  const isFaculty = currentUser?.role === "FACULTY" || currentUser?.role === "ADMIN";
+  const isFaculty = currentUser?.role === "FACULTY" || currentUser?.role === "ADMIN" || currentUser?.role === "TA";
   
   return (
     <div className="float-end">

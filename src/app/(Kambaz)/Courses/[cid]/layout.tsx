@@ -29,7 +29,7 @@ function CoursesLayoutContent({ children }: { children: ReactNode }) {
   const course = courses.find((course: Course) => course._id === cid);
   const { sidebarVisible, setSidebarVisible } = useSidebar();
 
-  const isFaculty = currentUser?.role === "FACULTY" || currentUser?.role === "ADMIN";
+  const isFaculty = currentUser?.role === "FACULTY" || currentUser?.role === "ADMIN" || currentUser?.role === "TA";
   const isEnrolled = currentUser && enrollments.some(
     (enrollment: Enrollment) =>
       enrollment.user === currentUser._id && enrollment.course === cid

@@ -31,20 +31,24 @@ export default function Modules() {
   const { cid } = useParams();
   const [moduleName, setModuleName] = useState("");
   const { modules } = useSelector((state: RootState) => state.modulesReducer);
+  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
   const dispatch = useDispatch();
+  const isFaculty = currentUser?.role === "FACULTY" || currentUser?.role === "ADMIN" || currentUser?.role === "TA";
 
   return (
     <div className="wd-modules">
-      <ModulesControls
-        moduleName={moduleName}
-        setModuleName={setModuleName}
-        addModule={() => {
-          if (cid) {
-            dispatch(addModule({ name: moduleName, course: cid as string }));
-            setModuleName("");
-          }
-        }}
-      />
+      {isFaculty && (
+        <ModulesControls
+          moduleName={moduleName}
+          setModuleName={setModuleName}
+          addModule={() => {
+            if (cid) {
+              dispatch(addModule({ name: moduleName, course: cid as string }));
+              setModuleName("");
+            }
+          }}
+        />
+      )}
       <br />
       <br />
       <br />
@@ -60,10 +64,7 @@ export default function Modules() {
               <div className="wd-title p-3 ps-2 bg-secondary d-flex align-items-center">
                 <BsGripVertical className="me-2 fs-3" />
                 <FaFolder className="me-2 text-primary" />
-                {!module.editing && (
-                  <span className="flex-grow-1">{module.name}</span>
-                )}
-                {module.editing && (
+                {isFaculty && module.editing ? (
                   <FormControl
                     className="w-50 d-inline-block"
                     onChange={(e) =>
@@ -78,14 +79,18 @@ export default function Modules() {
                     }}
                     defaultValue={module.name}
                   />
+                ) : (
+                  <span className="flex-grow-1">{module.name}</span>
                 )}
-                <ModuleControlButtons
-                  moduleId={module._id}
-                  deleteModule={(moduleId) => {
-                    dispatch(deleteModule(moduleId));
-                  }}
-                  editModule={(moduleId) => dispatch(editModule(moduleId))}
-                />
+                {isFaculty && (
+                  <ModuleControlButtons
+                    moduleId={module._id}
+                    deleteModule={(moduleId) => {
+                      dispatch(deleteModule(moduleId));
+                    }}
+                    editModule={(moduleId) => dispatch(editModule(moduleId))}
+                  />
+                )}
               </div>
               {module.lessons && (
                 <ListGroup className="wd-lessons rounded-0">

@@ -1,3 +1,5 @@
+"use client";
+
 import { IoEllipsisVertical } from "react-icons/io5";
 import { BsPlus } from "react-icons/bs";
 import { FaTrash } from "react-icons/fa";

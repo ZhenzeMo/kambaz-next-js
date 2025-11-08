@@ -37,7 +37,7 @@ export default function Dashboard() {
     image: "/images/reactjs.jpg", description: "New Description"
   });
 
-  const isFaculty = currentUser?.role === "FACULTY" || currentUser?.role === "ADMIN";
+  const isFaculty = currentUser?.role === "FACULTY" || currentUser?.role === "ADMIN" || currentUser?.role === "TA";
   
   const isEnrolled = (courseId: string) => {
     if (!currentUser) return false;

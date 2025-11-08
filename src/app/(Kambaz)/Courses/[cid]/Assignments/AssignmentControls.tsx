@@ -12,7 +12,7 @@ export default function AssignmentControls() {
   const router = useRouter();
   const { cid } = useParams();
   const { currentUser } = useSelector((state: RootState) => state.accountReducer);
-  const isFaculty = currentUser?.role === "FACULTY" || currentUser?.role === "ADMIN";
+  const isFaculty = currentUser?.role === "FACULTY" || currentUser?.role === "ADMIN" || currentUser?.role === "TA";
   
   return (
     <div id="wd-assignments-controls" className="mb-4">
