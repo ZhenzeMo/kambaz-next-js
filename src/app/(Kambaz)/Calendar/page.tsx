@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import { Container, Card } from "react-bootstrap";
 
 export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date());

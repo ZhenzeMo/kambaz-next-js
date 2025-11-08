@@ -6,10 +6,17 @@ import { FaInbox, FaRegCircleUser } from "react-icons/fa6";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { IconType } from "react-icons";
+
+interface NavigationLink {
+  label: string;
+  path: string;
+  icon: IconType;
+}
 
 export default function KambazNavigation() {
   const pathname = usePathname();
-  const links = [
+  const links: NavigationLink[] = [
     { label: "Dashboard", path: "/Dashboard", icon: AiOutlineDashboard },
     { label: "Courses",   path: "/Dashboard", icon: LiaBookSolid },
     { label: "Calendar",  path: "/Calendar",  icon: IoCalendarOutline },
@@ -30,15 +37,18 @@ export default function KambazNavigation() {
         <br />
         Account
       </ListGroupItem>
-      {links.map((link) => (
-        <ListGroupItem key={link.path} as={Link} href={link.path}
-          className={`bg-black text-center border-0
-              ${pathname.includes(link.label) ? "text-danger bg-white" : "text-white bg-black"}`}>
-          {link.icon({ className: "fs-1 text-danger"})}
-          <br />
-          {link.label}
-        </ListGroupItem>
-      ))}
+      {links.map((link) => {
+        const IconComponent = link.icon;
+        return (
+          <ListGroupItem key={link.path} as={Link} href={link.path}
+            className={`bg-black text-center border-0
+                ${pathname.includes(link.label) ? "text-danger bg-white" : "text-white bg-black"}`}>
+            <IconComponent className="fs-1 text-danger" />
+            <br />
+            {link.label}
+          </ListGroupItem>
+        );
+      })}
     </ListGroup>
   );
 }

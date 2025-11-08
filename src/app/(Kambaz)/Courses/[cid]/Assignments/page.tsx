@@ -9,7 +9,7 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import { MdOutlineAssignment } from "react-icons/md";
 import Link from "next/link";
 import { deleteAssignment } from "./reducer";
-import { RootState } from "../../../../store";
+import { RootState } from "../../../store";
 import AssignmentControls from "./AssignmentControls";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 import AssignmentGroupControls from "./AssignmentGroupControls";
@@ -62,7 +62,7 @@ export default function Assignments() {
         hour: "2-digit",
         minute: "2-digit",
       });
-    } catch (e) {
+    } catch {
       return dateString;
     }
   };

@@ -1,6 +1,6 @@
 "use client";
 
-import { ListGroup, ListGroupItem, Card, CardImg, CardBody, CardTitle, CardText, Button } from "react-bootstrap";
+import { Card, CardImg, CardBody, CardTitle, CardText, Button } from "react-bootstrap";
 import Link from "next/link";
 import { FaTimes } from "react-icons/fa";
 

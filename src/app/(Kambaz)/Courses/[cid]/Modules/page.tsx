@@ -15,6 +15,7 @@ import LessonControlButtons from "./LessonControlButtons";
 interface Lesson {
   _id: string;
   name: string;
+  [key: string]: unknown;
 }
 
 interface Module {
@@ -23,6 +24,7 @@ interface Module {
   course: string;
   lessons?: Lesson[];
   editing?: boolean;
+  [key: string]: unknown;
 }
 
 export default function Modules() {
@@ -37,18 +39,20 @@ export default function Modules() {
         moduleName={moduleName}
         setModuleName={setModuleName}
         addModule={() => {
-          dispatch(addModule({ name: moduleName, course: cid }));
-          setModuleName("");
+          if (cid) {
+            dispatch(addModule({ name: moduleName, course: cid as string }));
+            setModuleName("");
+          }
         }}
       />
       <br />
       <br />
       <br />
       <br />
-      <ListGroup id="wd-modules" className="rounded-0">
-        {modules
-          .filter((module: Module) => module.course === cid)
-          .map((module: Module) => (
+          <ListGroup id="wd-modules" className="rounded-0">
+            {modules
+              .filter((module: Module) => module.course === (cid as string))
+              .map((module: Module) => (
             <ListGroupItem
               key={module._id}
               className="wd-module p-0 mb-5 fs-5 border-gray"

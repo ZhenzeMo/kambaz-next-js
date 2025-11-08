@@ -66,6 +66,7 @@ export default function AssignmentEditor() {
   }, [assignment]);
 
   const handleSave = () => {
+    if (!cid) return;
     if (isNew) {
       dispatch(
         addAssignment({
@@ -86,6 +87,7 @@ export default function AssignmentEditor() {
   };
 
   const handleCancel = () => {
+    if (!cid) return;
     router.push(`/Courses/${cid}/Assignments`);
   };
 
