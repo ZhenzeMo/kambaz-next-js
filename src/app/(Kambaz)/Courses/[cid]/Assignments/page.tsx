@@ -1,11 +1,15 @@
 "use client";
+
+import { useState } from "react";
 import { useParams } from "next/navigation";
-import { assignments } from "../../../Database";
-import { ListGroup, ListGroupItem } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { ListGroup, ListGroupItem, Modal, Button as BootstrapButton } from "react-bootstrap";
 import { BsGripVertical } from "react-icons/bs";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { MdOutlineAssignment } from "react-icons/md";
 import Link from "next/link";
+import { deleteAssignment } from "./reducer";
+import { RootState } from "../../../../store";
 import AssignmentControls from "./AssignmentControls";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 import AssignmentGroupControls from "./AssignmentGroupControls";
@@ -14,11 +18,55 @@ interface Assignment {
   _id: string;
   title: string;
   course: string;
+  description?: string;
+  points?: number;
+  dueDate?: string;
+  availableFromDate?: string;
+  availableUntilDate?: string;
 }
 
 export default function Assignments() {
   const { cid } = useParams();
-  
+  const { assignments } = useSelector((state: RootState) => state.assignmentsReducer);
+  const dispatch = useDispatch();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [assignmentToDelete, setAssignmentToDelete] = useState<string | null>(null);
+
+  const handleDeleteClick = (assignmentId: string) => {
+    setAssignmentToDelete(assignmentId);
+    setShowDeleteModal(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    if (assignmentToDelete) {
+      dispatch(deleteAssignment(assignmentToDelete));
+      setShowDeleteModal(false);
+      setAssignmentToDelete(null);
+    }
+  };
+
+  const handleDeleteCancel = () => {
+    setShowDeleteModal(false);
+    setAssignmentToDelete(null);
+  };
+
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return "";
+    try {
+      // Handle datetime-local format (YYYY-MM-DDTHH:mm)
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return dateString;
+      return date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    } catch (e) {
+      return dateString;
+    }
+  };
+
   return (
     <div id="wd-assignments">
       <AssignmentControls />
@@ -35,30 +83,65 @@ export default function Assignments() {
             {assignments
               .filter((assignment: Assignment) => assignment.course === cid)
               .map((assignment: Assignment) => (
-                <ListGroupItem key={assignment._id} className="wd-assignment-list-item p-3 ps-1" style={{ borderLeft: '5px solid #198754', borderTop: '1px solid #dee2e6', borderRight: '1px solid #dee2e6', borderBottom: '1px solid #dee2e6' }}>
+                <ListGroupItem
+                  key={assignment._id}
+                  className="wd-assignment-list-item p-3 ps-1"
+                  style={{
+                    borderLeft: "5px solid #198754",
+                    borderTop: "1px solid #dee2e6",
+                    borderRight: "1px solid #dee2e6",
+                    borderBottom: "1px solid #dee2e6",
+                  }}
+                >
                   <div className="d-flex align-items-center">
                     <BsGripVertical className="me-2 fs-3" />
                     <MdOutlineAssignment className="me-3 fs-3 text-success" />
                     <div className="flex-grow-1">
-                      <Link 
+                      <Link
                         href={`/Courses/${cid}/Assignments/${assignment._id}`}
                         className="wd-assignment-link text-dark fw-bold text-decoration-none"
                       >
                         {assignment.title}
                       </Link>
                       <div className="text-muted small">
-                        <span className="text-danger">Multiple Modules</span> | <strong>Not available until</strong> May 6 at 12:00am | 
-                        <br />
-                        <strong>Due</strong> May 13 at 11:59pm | 100 pts
+                        {assignment.availableFromDate && (
+                          <>
+                            <strong>Not available until</strong> {formatDate(assignment.availableFromDate)} |{" "}
+                          </>
+                        )}
+                        {assignment.dueDate && (
+                          <>
+                            <strong>Due</strong> {formatDate(assignment.dueDate)} |{" "}
+                          </>
+                        )}
+                        {assignment.points || 100} pts
                       </div>
                     </div>
-                    <AssignmentControlButtons />
+                    <AssignmentControlButtons
+                      assignmentId={assignment._id}
+                      onDelete={handleDeleteClick}
+                    />
                   </div>
                 </ListGroupItem>
               ))}
           </ListGroup>
         </ListGroupItem>
       </ListGroup>
+
+      <Modal show={showDeleteModal} onHide={handleDeleteCancel}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Assignment</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to remove this assignment?</Modal.Body>
+        <Modal.Footer>
+          <BootstrapButton variant="secondary" onClick={handleDeleteCancel}>
+            Cancel
+          </BootstrapButton>
+          <BootstrapButton variant="danger" onClick={handleDeleteConfirm}>
+            Yes
+          </BootstrapButton>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
