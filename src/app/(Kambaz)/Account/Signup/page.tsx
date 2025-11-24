@@ -8,8 +8,13 @@ import { useState } from "react";
 import { FormControl, Button } from "react-bootstrap";
 import * as client from "../client";
 
+interface SignupUser {
+  username?: string;
+  password?: string;
+}
+
 export default function Signup() {
-  const [user, setUser] = useState<any>({});
+  const [user, setUser] = useState<SignupUser>({});
   const dispatch = useDispatch();
   const router = useRouter();
 

@@ -33,14 +33,13 @@ export default function Assignments() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [assignmentToDelete, setAssignmentToDelete] = useState<string | null>(null);
 
-  const fetchAssignments = async () => {
-    const assignments = await coursesClient.findAssignmentsForCourse(cid as string);
-    dispatch(setAssignments(assignments));
-  };
-
   useEffect(() => {
+    const fetchAssignments = async () => {
+      const assignments = await coursesClient.findAssignmentsForCourse(cid as string);
+      dispatch(setAssignments(assignments));
+    };
     fetchAssignments();
-  }, []);
+  }, [cid, dispatch]);
 
   const handleDeleteClick = (assignmentId: string) => {
     setAssignmentToDelete(assignmentId);

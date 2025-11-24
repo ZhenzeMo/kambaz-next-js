@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { ListGroup, ListGroupItem, FormControl } from "react-bootstrap";
 import { BsGripVertical } from "react-icons/bs";
 import { FaFolder, FaFileAlt } from "react-icons/fa";
-import { setModules, addModule, editModule, updateModule, deleteModule } from "./reducer";
+import { setModules, editModule, updateModule } from "./reducer";
 import { RootState } from "../../../store";
 import ModulesControls from "./ModulesControls";
 import ModuleControlButtons from "./ModuleControlButtons";
@@ -36,20 +36,19 @@ export default function Modules() {
   const dispatch = useDispatch();
   const isFaculty = currentUser?.role === "FACULTY" || currentUser?.role === "ADMIN" || currentUser?.role === "TA";
 
-  const fetchModules = async () => {
-    const modules = await coursesClient.findModulesForCourse(cid as string);
-    dispatch(setModules(modules));
-  };
-
   useEffect(() => {
+    const fetchModules = async () => {
+      const fetchedModules = await coursesClient.findModulesForCourse(cid as string);
+      dispatch(setModules(fetchedModules));
+    };
     fetchModules();
-  }, []);
+  }, [cid, dispatch]);
 
   const onCreateModuleForCourse = async () => {
     if (!cid) return;
     const newModule = { name: moduleName, course: cid };
-    const module = await coursesClient.createModuleForCourse(cid as string, newModule);
-    dispatch(setModules([...modules, module]));
+    const createdModule = await coursesClient.createModuleForCourse(cid as string, newModule);
+    dispatch(setModules([...modules, createdModule]));
     setModuleName("");
   };
 
@@ -58,9 +57,9 @@ export default function Modules() {
     dispatch(setModules(modules.filter((m: Module) => m._id !== moduleId)));
   };
 
-  const onUpdateModule = async (module: Module) => {
-    await coursesClient.updateModule(module);
-    const newModules = modules.map((m: Module) => m._id === module._id ? module : m);
+  const onUpdateModule = async (moduleToUpdate: Module) => {
+    await coursesClient.updateModule(moduleToUpdate);
+    const newModules = modules.map((m: Module) => m._id === moduleToUpdate._id ? moduleToUpdate : m);
     dispatch(setModules(newModules));
   };
 
