@@ -6,6 +6,7 @@ import { FaInbox, FaRegCircleUser } from "react-icons/fa6";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { IconType } from "react-icons";
 
 interface NavigationLink {
@@ -18,7 +19,7 @@ export default function KambazNavigation() {
   const pathname = usePathname();
   const links: NavigationLink[] = [
     { label: "Dashboard", path: "/Dashboard", icon: AiOutlineDashboard },
-    { label: "Courses",   path: "/Dashboard", icon: LiaBookSolid },
+    { label: "Courses",   path: "/Courses", icon: LiaBookSolid },
     { label: "Calendar",  path: "/Calendar",  icon: IoCalendarOutline },
     { label: "Inbox",     path: "/Inbox",     icon: FaInbox },
     { label: "Labs",      path: "/Labs",             icon: LiaCogSolid },
@@ -28,7 +29,7 @@ export default function KambazNavigation() {
          className="rounded-0 position-fixed bottom-0 top-0 d-none d-md-block bg-black z-2">
       <ListGroupItem id="wd-neu-link" target="_blank" href="https://www.northeastern.edu/"
         action className="bg-black border-0 text-center">
-        <img src="/images/NEU.jpeg" width="75px" alt="Northeastern University" /></ListGroupItem>
+        <Image src="/images/NEU.jpeg" width={75} height={75} alt="Northeastern University" /></ListGroupItem>
       <ListGroupItem as={Link} href="/Account"
         className={`text-center border-0 bg-black
             ${pathname.includes("Account") ? "bg-white text-danger" : "bg-black text-white"}`}>

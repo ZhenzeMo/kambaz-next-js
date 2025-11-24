@@ -7,16 +7,23 @@ import { TiDelete } from "react-icons/ti";
 import { FaPencil } from "react-icons/fa6";
 import * as client from "./client";
 
+interface Todo {
+  id: number;
+  title: string;
+  completed: boolean;
+  editing?: boolean;
+}
+
 export default function WorkingWithArraysAsynchronously() {
-  const [todos, setTodos] = useState<any[]>([]);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const fetchTodos = async () => {
     const todos = await client.fetchTodos();
     setTodos(todos);
   };
 
-  const removeTodo = async (todo: any) => {
+  const removeTodo = async (todo: Todo) => {
     const updatedTodos = await client.removeTodo(todo);
     setTodos(updatedTodos);
   };
@@ -31,30 +38,36 @@ export default function WorkingWithArraysAsynchronously() {
     setTodos([...todos, newTodo]);
   };
 
-  const deleteTodo = async (todo: any) => {
+  const deleteTodo = async (todo: Todo) => {
     try {
       await client.deleteTodo(todo);
       const newTodos = todos.filter((t) => t.id !== todo.id);
       setTodos(newTodos);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.log(error);
-      setErrorMessage(error.response.data.message);
+      if (error && typeof error === 'object' && 'response' in error) {
+        const axiosError = error as { response: { data: { message: string } } };
+        setErrorMessage(axiosError.response.data.message);
+      }
     }
   };
 
-  const editTodo = (todo: any) => {
+  const editTodo = (todo: Todo) => {
     const updatedTodos = todos.map(
       (t) => t.id === todo.id ? { ...todo, editing: true } : t
     );
     setTodos(updatedTodos);
   };
 
-  const updateTodo = async (todo: any) => {
+  const updateTodo = async (todo: Todo) => {
     try {
       await client.updateTodo(todo);
       setTodos(todos.map((t) => (t.id === todo.id ? todo : t)));
-    } catch (error: any) {
-      setErrorMessage(error.response.data.message);
+    } catch (error: unknown) {
+      if (error && typeof error === 'object' && 'response' in error) {
+        const axiosError = error as { response: { data: { message: string } } };
+        setErrorMessage(axiosError.response.data.message);
+      }
     }
   };
 
