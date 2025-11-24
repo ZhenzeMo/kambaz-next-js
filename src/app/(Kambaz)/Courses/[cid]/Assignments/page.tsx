@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { ListGroup, ListGroupItem, Modal, Button as BootstrapButton } from "react-bootstrap";
@@ -8,11 +8,12 @@ import { BsGripVertical } from "react-icons/bs";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { MdOutlineAssignment } from "react-icons/md";
 import Link from "next/link";
-import { deleteAssignment } from "./reducer";
+import { setAssignments } from "./reducer";
 import { RootState } from "../../../store";
 import AssignmentControls from "./AssignmentControls";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 import AssignmentGroupControls from "./AssignmentGroupControls";
+import * as coursesClient from "../../client";
 
 interface Assignment {
   _id: string;
@@ -32,14 +33,24 @@ export default function Assignments() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [assignmentToDelete, setAssignmentToDelete] = useState<string | null>(null);
 
+  const fetchAssignments = async () => {
+    const assignments = await coursesClient.findAssignmentsForCourse(cid as string);
+    dispatch(setAssignments(assignments));
+  };
+
+  useEffect(() => {
+    fetchAssignments();
+  }, []);
+
   const handleDeleteClick = (assignmentId: string) => {
     setAssignmentToDelete(assignmentId);
     setShowDeleteModal(true);
   };
 
-  const handleDeleteConfirm = () => {
+  const handleDeleteConfirm = async () => {
     if (assignmentToDelete) {
-      dispatch(deleteAssignment(assignmentToDelete));
+      await coursesClient.deleteAssignment(assignmentToDelete);
+      dispatch(setAssignments(assignments.filter((a: Assignment) => a._id !== assignmentToDelete)));
       setShowDeleteModal(false);
       setAssignmentToDelete(null);
     }
@@ -80,9 +91,7 @@ export default function Assignments() {
             <AssignmentGroupControls />
           </div>
           <ListGroup className="rounded-0">
-            {assignments
-              .filter((assignment: Assignment) => assignment.course === cid)
-              .map((assignment: Assignment) => (
+            {assignments.map((assignment: Assignment) => (
                 <ListGroupItem
                   key={assignment._id}
                   className="wd-assignment-list-item p-3 ps-1"

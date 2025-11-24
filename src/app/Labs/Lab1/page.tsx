@@ -13,6 +13,8 @@ export default function Lab1() {
           <li><Link href="/Labs/Lab2">Lab 2: CSS Basics</Link></li>
           <li><Link href="/Labs/Lab3">Lab 3: JavaScript Fundamentals</Link></li>
           <li><Link href="/Labs/Lab4">Lab 4: Redux Statement</Link></li>
+          <li><Link href="/Labs/Lab5">Lab 5: Implementing RESTful Web APIs with Express.js
+          </Link></li>
         </ul>
         <h2>Kambaz Application</h2>
         <Link href="/">Kambaz</Link>

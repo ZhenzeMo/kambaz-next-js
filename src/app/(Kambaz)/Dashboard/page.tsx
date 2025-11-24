@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { Row, Col, Card, CardImg, CardBody, CardTitle, CardText, Button, FormControl } from "react-bootstrap";
-import { addNewCourse, deleteCourse, updateCourse } from "../Courses/reducer";
+import { setCourses } from "../Courses/reducer";
 import { enrollUser, unenrollUser } from "../Enrollments/reducer";
 import { RootState } from "../store";
+import * as client from "../Courses/client";
 
 interface Course {
   _id: string;
@@ -47,20 +48,36 @@ export default function Dashboard() {
     );
   };
 
-  const handleEnroll = (courseId: string) => {
+  const fetchCourses = async () => {
+    try {
+      const courses = await client.findMyCourses();
+      dispatch(setCourses(courses));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCourses();
+  }, [currentUser]);
+
+  const handleEnroll = async (courseId: string) => {
     if (currentUser) {
+      await client.enrollInCourse("current", courseId);
       dispatch(enrollUser({ userId: currentUser._id, courseId }));
     }
   };
 
-  const handleUnenroll = (courseId: string) => {
+  const handleUnenroll = async (courseId: string) => {
     if (currentUser) {
+      await client.unenrollFromCourse("current", courseId);
       dispatch(unenrollUser({ userId: currentUser._id, courseId }));
     }
   };
   
-  const handleAddNewCourse = () => {
-    dispatch(addNewCourse(course));
+  const onAddNewCourse = async () => {
+    const newCourse = await client.createCourse(course);
+    dispatch(setCourses([...courses, newCourse]));
     setCourse({
       _id: "0", name: "New Course", number: "New Number",
       startDate: "2023-09-10", endDate: "2023-12-15",
@@ -68,13 +85,22 @@ export default function Dashboard() {
     });
   };
   
-  const handleUpdateCourse = () => {
-    dispatch(updateCourse(course));
+  const onUpdateCourse = async () => {
+    await client.updateCourse(course);
+    dispatch(setCourses(courses.map((c) => {
+      if (c._id === course._id) { return course; }
+      else { return c; }
+    })));
     setCourse({
       _id: "0", name: "New Course", number: "New Number",
       startDate: "2023-09-10", endDate: "2023-12-15",
       image: "/images/reactjs.jpg", description: "New Description"
     });
+  };
+
+  const onDeleteCourse = async (courseId: string) => {
+    await client.deleteCourse(courseId);
+    dispatch(setCourses(courses.filter((course) => course._id !== courseId)));
   };
 
   // Faculty always see all courses when showAllCourses is true, otherwise all courses
@@ -102,9 +128,9 @@ export default function Dashboard() {
           <h5>New Course
               <button className="btn btn-primary float-end"
                       id="wd-add-new-course-click"
-                      onClick={handleAddNewCourse} > Add </button>
+                      onClick={onAddNewCourse} > Add </button>
               <button className="btn btn-warning float-end me-2"
-                      onClick={handleUpdateCourse} id="wd-update-course-click">
+                      onClick={onUpdateCourse} id="wd-update-course-click">
                 Update </button>
           </h5><br />
           <FormControl value={course.name} className="mb-2"
@@ -152,7 +178,7 @@ export default function Dashboard() {
                         <button
                           onClick={(event) => {
                             event.preventDefault();
-                            dispatch(deleteCourse(course._id));
+                            onDeleteCourse(course._id);
                           }}
                           className="btn btn-danger float-end"
                           id="wd-delete-course-click"

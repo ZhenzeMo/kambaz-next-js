@@ -1,16 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { ListGroup, ListGroupItem, FormControl } from "react-bootstrap";
 import { BsGripVertical } from "react-icons/bs";
 import { FaFolder, FaFileAlt } from "react-icons/fa";
-import { addModule, editModule, updateModule, deleteModule } from "./reducer";
+import { setModules, addModule, editModule, updateModule, deleteModule } from "./reducer";
 import { RootState } from "../../../store";
 import ModulesControls from "./ModulesControls";
 import ModuleControlButtons from "./ModuleControlButtons";
 import LessonControlButtons from "./LessonControlButtons";
+import * as coursesClient from "../../client";
 
 interface Lesson {
   _id: string;
@@ -35,18 +36,41 @@ export default function Modules() {
   const dispatch = useDispatch();
   const isFaculty = currentUser?.role === "FACULTY" || currentUser?.role === "ADMIN" || currentUser?.role === "TA";
 
+  const fetchModules = async () => {
+    const modules = await coursesClient.findModulesForCourse(cid as string);
+    dispatch(setModules(modules));
+  };
+
+  useEffect(() => {
+    fetchModules();
+  }, []);
+
+  const onCreateModuleForCourse = async () => {
+    if (!cid) return;
+    const newModule = { name: moduleName, course: cid };
+    const module = await coursesClient.createModuleForCourse(cid as string, newModule);
+    dispatch(setModules([...modules, module]));
+    setModuleName("");
+  };
+
+  const onRemoveModule = async (moduleId: string) => {
+    await coursesClient.deleteModule(moduleId);
+    dispatch(setModules(modules.filter((m: any) => m._id !== moduleId)));
+  };
+
+  const onUpdateModule = async (module: any) => {
+    await coursesClient.updateModule(module);
+    const newModules = modules.map((m: any) => m._id === module._id ? module : m);
+    dispatch(setModules(newModules));
+  };
+
   return (
     <div className="wd-modules">
       {isFaculty && (
         <ModulesControls
           moduleName={moduleName}
           setModuleName={setModuleName}
-          addModule={() => {
-            if (cid) {
-              dispatch(addModule({ name: moduleName, course: cid as string }));
-              setModuleName("");
-            }
-          }}
+          addModule={onCreateModuleForCourse}
         />
       )}
       <br />
@@ -54,9 +78,7 @@ export default function Modules() {
       <br />
       <br />
           <ListGroup id="wd-modules" className="rounded-0">
-            {modules
-              .filter((module: Module) => module.course === (cid as string))
-              .map((module: Module) => (
+            {modules.map((module: Module) => (
             <ListGroupItem
               key={module._id}
               className="wd-module p-0 mb-5 fs-5 border-gray"
@@ -67,6 +89,7 @@ export default function Modules() {
                 {isFaculty && module.editing ? (
                   <FormControl
                     className="w-50 d-inline-block"
+                    value={module.name}
                     onChange={(e) =>
                       dispatch(
                         updateModule({ ...module, name: e.target.value })
@@ -74,10 +97,9 @@ export default function Modules() {
                     }
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
-                        dispatch(updateModule({ ...module, editing: false }));
+                        onUpdateModule({ ...module, editing: false });
                       }
                     }}
-                    defaultValue={module.name}
                   />
                 ) : (
                   <span className="flex-grow-1">{module.name}</span>
@@ -85,9 +107,7 @@ export default function Modules() {
                 {isFaculty && (
                   <ModuleControlButtons
                     moduleId={module._id}
-                    deleteModule={(moduleId) => {
-                      dispatch(deleteModule(moduleId));
-                    }}
+                    deleteModule={(moduleId) => onRemoveModule(moduleId)}
                     editModule={(moduleId) => dispatch(editModule(moduleId))}
                   />
                 )}

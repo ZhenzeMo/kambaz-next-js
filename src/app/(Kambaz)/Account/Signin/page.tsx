@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { setCurrentUser } from "../reducer";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import * as db from "../../Database";
 import { FormControl, Button } from "react-bootstrap";
+import * as client from "../client";
 
 interface Credentials {
   username?: string;
@@ -18,12 +18,8 @@ export default function Signin() {
   const dispatch = useDispatch();
   const router = useRouter();
   
-  const signin = () => {
-    const user = db.users.find(
-      (u: { username: string; password: string }) =>
-        u.username === credentials.username &&
-        u.password === credentials.password
-    );
+  const signin = async () => {
+    const user = await client.signin(credentials);
     if (!user) return;
     dispatch(setCurrentUser(user));
     router.push("/Dashboard");
@@ -36,14 +32,14 @@ export default function Signin() {
         value={credentials.username || ""}
         onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
         className="mb-2"
-        placeholder="username"
+        placeholder="Enter username"
         id="wd-username"
       />
       <FormControl
         value={credentials.password || ""}
         onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
         className="mb-2"
-        placeholder="password"
+        placeholder="Enter password"
         type="password"
         id="wd-password"
       />

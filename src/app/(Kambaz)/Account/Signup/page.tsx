@@ -1,39 +1,49 @@
-import { Form } from "react-bootstrap";
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { setCurrentUser } from "../reducer";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { FormControl, Button } from "react-bootstrap";
+import * as client from "../client";
 
 export default function Signup() {
+  const [user, setUser] = useState<any>({});
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const signup = async () => {
+    const currentUser = await client.signup(user);
+    dispatch(setCurrentUser(currentUser));
+    router.push("/Account/Profile");
+  };
+
   return (
-    <div id="wd-signup-screen" className="p-4" style={{ maxWidth: "400px" }}>
-      <h3>Signup</h3>
-      <Form>
-        <Form.Control
+    <div className="wd-signup-screen" id="wd-signup-screen" style={{ maxWidth: "400px" }}>
+      <h1>Sign up</h1>
+      <FormControl
+        value={user.username || ""}
+        onChange={(e) => setUser({ ...user, username: e.target.value })}
+        className="wd-username mb-2"
+        placeholder="Enter username"
           id="wd-username"
-          placeholder="username"
-          className="wd-username mb-3"
-        />
-        <Form.Control
-          id="wd-password"
-          placeholder="password"
+      />
+      <FormControl
+        value={user.password || ""}
+        onChange={(e) => setUser({ ...user, password: e.target.value })}
+        className="wd-password mb-2"
+          placeholder="Enter password"
           type="password"
-          className="wd-password mb-3"
+        id="wd-password"
         />
-        <Form.Control
-          id="wd-password-verify"
-          placeholder="verify password"
-          type="password"
-          className="wd-password-verify mb-3"
-        />
-        <Link
-          id="wd-signup-btn"
-          href="/Account/Profile"
-          className="btn btn-primary w-100 mb-2"
-        >
-          Signup
+      <Button onClick={signup} className="wd-signup-btn btn btn-primary mb-2 w-100" id="wd-signup-btn">
+        Sign up
+      </Button>
+      <br />
+      <Link href="/Account/Signin" className="wd-signin-link" id="wd-signin-link">
+        Sign in
         </Link>
-        <Link id="wd-signin-link" href="/Account/Signin">
-          Signin
-        </Link>
-      </Form>
     </div>
   );
 }
