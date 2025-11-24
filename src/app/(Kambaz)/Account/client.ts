@@ -6,8 +6,8 @@ export const HTTP_SERVER = process.env.NEXT_PUBLIC_HTTP_SERVER;
 export const USERS_API = `${HTTP_SERVER}/api/users`;
 
 interface Credentials {
-  username: string;
-  password: string;
+  username?: string;
+  password?: string;
 }
 
 interface User {
