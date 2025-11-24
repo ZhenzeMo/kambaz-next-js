@@ -4,6 +4,7 @@ export default function Float() {
       <div id="wd-float-divs">
         <h2>Float</h2>
         <div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="wd-float-right"
             src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"
             alt="Starship" />
@@ -13,6 +14,7 @@ export default function Float() {
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius hic ...
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius hic ...
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius hic ...
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="wd-float-left"
             src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"
             alt="Starship" />
@@ -22,6 +24,7 @@ export default function Float() {
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius hic ...
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius hic ...
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius hic ...
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="wd-float-right"
             src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"
             alt="Starship" />
@@ -41,6 +44,7 @@ export default function Float() {
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius hic ...
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius hic ...
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius hic ...
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="wd-float-left"
             src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"
             alt="Starship" />
@@ -66,6 +70,7 @@ export default function Float() {
           <div className="wd-float-left wd-dimension-portrait wd-bg-color-red">
             Red
           </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="wd-float-right"
             src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"
             alt="Starship" />

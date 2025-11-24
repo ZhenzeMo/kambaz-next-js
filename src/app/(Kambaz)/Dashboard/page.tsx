@@ -48,18 +48,17 @@ export default function Dashboard() {
     );
   };
 
-  const fetchCourses = async () => {
-    try {
-      const courses = await client.findMyCourses();
-      dispatch(setCourses(courses));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const courses = await client.findMyCourses();
+        dispatch(setCourses(courses));
+      } catch (error) {
+        console.error(error);
+      }
+    };
     fetchCourses();
-  }, [currentUser]);
+  }, [currentUser, dispatch]);
 
   const handleEnroll = async (courseId: string) => {
     if (currentUser) {
