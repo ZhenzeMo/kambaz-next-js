@@ -51,14 +51,16 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const courses = await client.findMyCourses();
+        const courses = isFaculty 
+          ? await client.fetchAllCourses()
+          : await client.findMyCourses();
         dispatch(setCourses(courses));
       } catch (error) {
         console.error(error);
       }
     };
     fetchCourses();
-  }, [currentUser, dispatch]);
+  }, [currentUser, dispatch, isFaculty]);
 
   const handleEnroll = async (courseId: string) => {
     if (currentUser) {
@@ -150,7 +152,7 @@ export default function Dashboard() {
             return (
               <Col key={course._id} className="wd-dashboard-course" style={{ width: "300px" }}>
                 <Card>
-                  {enrolled ? (
+                  {enrolled || isFaculty ? (
                     <Link href={`/Courses/${course._id}/Home`}
                           className="wd-dashboard-course-link text-decoration-none text-dark" >
                       <CardImg src={courseWithImage.image || "/images/reactjs.jpg"} variant="top" width="100%" height={160} />
@@ -167,7 +169,7 @@ export default function Dashboard() {
                     <CardText className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
                       {course.description}
                     </CardText>
-                    {enrolled && (
+                    {(enrolled || isFaculty) && (
                       <Link href={`/Courses/${course._id}/Home`}>
                         <Button variant="primary"> Go </Button>
                       </Link>
