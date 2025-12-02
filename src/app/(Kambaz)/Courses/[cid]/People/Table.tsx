@@ -4,19 +4,17 @@ import { useParams } from "next/navigation";
 import * as db from "../../../Database";
 import { Table } from "react-bootstrap";
 import { FaUserCircle } from "react-icons/fa";
-import * as client from "../../../Account/client";
 import PeopleDetails from "./Details";
-import Link from "next/link";
 
 interface User {
   _id: string;
   firstName: string;
   lastName: string;
-  loginId: string;
-  section: string;
+  loginId?: string;
+  section?: string;
   role: string;
-  lastActivity: string;
-  totalActivity: string;
+  lastActivity?: string;
+  totalActivity?: string;
 }
 
 interface Enrollment {
@@ -24,7 +22,7 @@ interface Enrollment {
   course: string;
 }
 
-export default function PeopleTable({ users = [], fetchUsers }: { users?: any[]; fetchUsers?: () => void; }) {
+export default function PeopleTable({ users = [], fetchUsers }: { users?: User[]; fetchUsers?: () => void; }) {
   const [showDetails, setShowDetails] = useState(false);
   const [showUserId, setShowUserId] = useState<string | null>(null);
   const params = useParams();

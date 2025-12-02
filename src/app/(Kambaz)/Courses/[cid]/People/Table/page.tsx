@@ -5,8 +5,20 @@ import { FormControl } from "react-bootstrap";
 import PeopleTable from "../Table";
 import * as client from "../../../../Account/client";
 
+interface User {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  loginId?: string;
+  section?: string;
+  role: string;
+  lastActivity?: string;
+  totalActivity?: string;
+  [key: string]: unknown;
+}
+
 export default function PeopleTablePage() {
-  const [users, setUsers] = useState<any[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [role, setRole] = useState("");
   const [name, setName] = useState("");
   const { cid } = useParams();

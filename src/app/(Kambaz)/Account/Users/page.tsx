@@ -7,8 +7,20 @@ import { FaPlus } from "react-icons/fa";
 import PeopleTable from "../../Courses/[cid]/People/Table";
 import * as client from "../client";
 
+interface User {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  loginId?: string;
+  section?: string;
+  role: string;
+  lastActivity?: string;
+  totalActivity?: string;
+  [key: string]: unknown;
+}
+
 export default function Users() {
-  const [users, setUsers] = useState<any[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [role, setRole] = useState("");
   const [name, setName] = useState("");
   const { uid } = useParams();

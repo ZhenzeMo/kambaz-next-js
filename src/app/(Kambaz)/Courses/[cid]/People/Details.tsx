@@ -5,8 +5,19 @@ import { IoCloseSharp } from "react-icons/io5";
 import { FormControl } from "react-bootstrap";
 import * as client from "../../../Account/client";
 
+interface User {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  role: string;
+  loginId?: string;
+  section?: string;
+  totalActivity?: string;
+  [key: string]: unknown;
+}
+
 export default function PeopleDetails({ uid, onClose }: { uid: string | null; onClose: () => void; }) {
-  const [user, setUser] = useState<any>({});
+  const [user, setUser] = useState<User>({} as User);
   const [name, setName] = useState("");
   const [editing, setEditing] = useState(false);
 
@@ -18,6 +29,7 @@ export default function PeopleDetails({ uid, onClose }: { uid: string | null; on
 
   useEffect(() => {
     if (uid) fetchUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid]);
 
   const deleteUser = async (uid: string) => {
