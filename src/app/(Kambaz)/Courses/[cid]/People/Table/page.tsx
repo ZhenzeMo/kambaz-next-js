@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { FormControl } from "react-bootstrap";
 import PeopleTable from "../Table";
-import * as client from "../../../../Account/client";
+import * as coursesClient from "../../../client";
 
 interface User {
   _id: string;
@@ -24,15 +24,17 @@ export default function PeopleTablePage() {
   const { cid } = useParams();
 
   const fetchUsers = async () => {
-    const allUsers = await client.findAllUsers();
-    setUsers(allUsers);
+    if (!cid) return;
+    const enrolledUsers = await coursesClient.findUsersForCourse(cid as string);
+    setUsers(enrolledUsers);
   };
 
   const filterUsersByRole = async (role: string) => {
     setRole(role);
     if (role) {
-      const users = await client.findUsersByRole(role);
-      setUsers(users);
+      const allEnrolledUsers = await coursesClient.findUsersForCourse(cid as string);
+      const filteredUsers = allEnrolledUsers.filter((user: User) => user.role === role);
+      setUsers(filteredUsers);
     } else {
       fetchUsers();
     }
@@ -41,8 +43,12 @@ export default function PeopleTablePage() {
   const filterUsersByName = async (name: string) => {
     setName(name);
     if (name) {
-      const users = await client.findUsersByPartialName(name);
-      setUsers(users);
+      const allEnrolledUsers = await coursesClient.findUsersForCourse(cid as string);
+      const regex = new RegExp(name, "i");
+      const filteredUsers = allEnrolledUsers.filter(
+        (user: User) => regex.test(user.firstName) || regex.test(user.lastName)
+      );
+      setUsers(filteredUsers);
     } else {
       fetchUsers();
     }
