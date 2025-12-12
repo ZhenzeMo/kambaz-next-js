@@ -138,7 +138,7 @@ export default function Dashboard() {
               <button className="btn btn-primary float-end"
                       id="wd-add-new-course-click"
                       onClick={onAddNewCourse} > Add </button>
-              <button className="btn btn-warning float-end me-2"
+              <button className="btn btn-primary float-end me-2"
                       onClick={onUpdateCourse} id="wd-update-course-click">
                 Update </button>
           </h5><br />

@@ -216,7 +216,7 @@ export default function TakeQuiz() {
 
       <div className="row">
         <div className="col-md-9">
-          {questionsToShow.map((question, index) => {
+      {questionsToShow.map((question, index) => {
         if (!question) return null;
         const actualIndex = quiz.oneQuestionAtATime ? currentQuestionIndex : index;
         
@@ -278,31 +278,21 @@ export default function TakeQuiz() {
         );
       })}
 
-          <div className="d-flex justify-content-between align-items-center">
-            {quiz.oneQuestionAtATime ? (
-              <>
-                <Button 
-                  variant="secondary" 
-                  onClick={handlePrevious}
-                  disabled={currentQuestionIndex === 0}
-                >
-                  Previous
-                </Button>
-                
-                {currentQuestionIndex < (quiz.questions?.length || 0) - 1 ? (
-                  <Button variant="primary" onClick={handleNext}>
-                    Next
-                  </Button>
-                ) : (
-                  <Button 
-                    variant="danger" 
-                    onClick={handleSubmit}
-                    disabled={submitting}
-                  >
-                    {submitting ? "Submitting..." : "Submit Quiz"}
-                  </Button>
-                )}
-              </>
+      <div className="d-flex justify-content-between align-items-center">
+        {quiz.oneQuestionAtATime ? (
+          <>
+            <Button 
+              variant="secondary" 
+              onClick={handlePrevious}
+              disabled={currentQuestionIndex === 0}
+            >
+              Previous
+            </Button>
+            
+            {currentQuestionIndex < (quiz.questions?.length || 0) - 1 ? (
+              <Button variant="primary" onClick={handleNext}>
+                Next
+              </Button>
             ) : (
               <Button 
                 variant="danger" 
@@ -312,6 +302,16 @@ export default function TakeQuiz() {
                 {submitting ? "Submitting..." : "Submit Quiz"}
               </Button>
             )}
+          </>
+        ) : (
+          <Button 
+            variant="danger" 
+            onClick={handleSubmit}
+            disabled={submitting}
+          >
+            {submitting ? "Submitting..." : "Submit Quiz"}
+          </Button>
+        )}
           </div>
         </div>
 

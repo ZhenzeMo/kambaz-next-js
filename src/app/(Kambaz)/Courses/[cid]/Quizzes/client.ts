@@ -81,12 +81,12 @@ export const deleteQuiz = async (quizId: string): Promise<void> => {
 };
 
 export const publishQuiz = async (quizId: string): Promise<Quiz> => {
-  const response = await axiosWithCredentials.put(`${QUIZZES_API}/${quizId}/publish`, {});
+  const response = await axiosWithCredentials.put(`${QUIZZES_API}/${quizId}/unpublish`, {});
   return response.data;
 };
 
 export const unpublishQuiz = async (quizId: string): Promise<Quiz> => {
-  const response = await axiosWithCredentials.put(`${QUIZZES_API}/${quizId}/unpublish`, {});
+  const response = await axiosWithCredentials.put(`${QUIZZES_API}/${quizId}/publish`, {});
   return response.data;
 };
 

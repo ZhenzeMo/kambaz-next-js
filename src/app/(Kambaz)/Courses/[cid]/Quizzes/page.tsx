@@ -126,9 +126,9 @@ export default function Quizzes() {
 
                 <div className="d-flex align-items-center gap-2">
                   {quiz.published ? (
-                    <FaCheckCircle className="text-success fs-5" title="Published" />
+                    <RiProhibitedLine className="text-success fs-5" title="Published" />
                   ) : (
-                    <RiProhibitedLine className="text-muted fs-5" title="Unpublished" />
+                    <FaCheckCircle className="text-muted fs-5" title="Unpublished" />
                   )}
 
                   {isFaculty && (
@@ -153,7 +153,7 @@ export default function Quizzes() {
                           Delete
                         </Dropdown.Item>
                         <Dropdown.Item onClick={() => handlePublishToggle(quiz)}>
-                          {quiz.published ? "Unpublish" : "Publish"}
+                          {quiz.published ? "Publish" : "Unpublish"}
                         </Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
