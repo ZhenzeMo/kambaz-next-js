@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
-import { Row, Col, Card, CardImg, CardBody, CardTitle, CardText, Button, FormControl } from "react-bootstrap";
+import { Row, Col, Card, CardImg, CardBody, CardTitle, CardText, Button, FormControl, Alert } from "react-bootstrap";
 import { setCourses } from "../Courses/reducer";
 import { enrollUser, unenrollUser } from "../Enrollments/reducer";
 import { RootState } from "../store";
@@ -51,10 +51,15 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const courses = isFaculty 
-          ? await client.fetchAllCourses()
-          : await client.findMyCourses();
-        dispatch(setCourses(courses));
+        const fetchedCourses = await client.fetchAllCourses();
+        dispatch(setCourses(fetchedCourses));
+        
+        if (!isFaculty) {
+          const myCourses = await client.findMyCourses();
+          if (myCourses.length === 0) {
+            setShowAllCourses(true);
+          }
+        }
       } catch (error) {
         console.error(error);
       }
@@ -66,6 +71,7 @@ export default function Dashboard() {
     if (currentUser) {
       await client.enrollInCourse("current", courseId);
       dispatch(enrollUser({ userId: currentUser._id, courseId }));
+      setShowAllCourses(false);
     }
   };
 
@@ -104,24 +110,26 @@ export default function Dashboard() {
     dispatch(setCourses(courses.filter((course) => course._id !== courseId)));
   };
 
-  // Faculty always see all courses when showAllCourses is true, otherwise all courses
-  // Non-faculty see all courses when showAllCourses is true, otherwise only enrolled courses
   const displayedCourses = isFaculty
     ? courses
     : showAllCourses
     ? courses
     : courses.filter((course: Course) => currentUser && isEnrolled(course._id));
+
+  const hasEnrollments = !isFaculty && courses.some((c: Course) => isEnrolled(c._id));
   return (
     <div id="wd-dashboard">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h1 id="wd-dashboard-title" className="mb-0">Dashboard</h1>
-        <Button
-          variant="primary"
-          onClick={() => setShowAllCourses(!showAllCourses)}
-          id="wd-enrollments-button"
-        >
-          {showAllCourses ? "Show Enrolled" : "Enrollments"}
-        </Button>
+        {!isFaculty && (
+          <Button
+            variant="primary"
+            onClick={() => setShowAllCourses(!showAllCourses)}
+            id="wd-enrollments-button"
+          >
+            {showAllCourses ? "Show My Courses" : "Browse All Courses"}
+          </Button>
+        )}
       </div>
       <hr />
       {isFaculty && (
@@ -141,8 +149,19 @@ export default function Dashboard() {
           <hr />
         </>
       )}
+      {!isFaculty && !hasEnrollments && !showAllCourses && (
+        <Alert variant="info">
+          <h5>Welcome! You are not enrolled in any courses yet.</h5>
+          <p>Click the "Browse All Courses" button above to see available courses and enroll.</p>
+        </Alert>
+      )}
       <h2 id="wd-dashboard-published">
-        {showAllCourses ? "All Courses" : "Published Courses"} ({displayedCourses.length})
+        {isFaculty 
+          ? `Published Courses (${displayedCourses.length})`
+          : showAllCourses 
+          ? `All Courses (${displayedCourses.length})` 
+          : `My Courses (${displayedCourses.length})`
+        }
       </h2> <hr />
       <div id="wd-dashboard-courses">
         <Row xs={1} md={5} className="g-4">

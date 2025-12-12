@@ -5,11 +5,13 @@ import { useRouter } from "next/navigation";
 import { setCurrentUser } from "../reducer";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { FormControl, Button } from "react-bootstrap";
+import { FormControl, Button, Form } from "react-bootstrap";
 import * as client from "../client";
 
 export default function Signup() {
-  const [user, setUser] = useState<{ username?: string; password?: string }>({});
+  const [user, setUser] = useState<{ username?: string; password?: string; role?: string }>({
+    role: "STUDENT"
+  });
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -37,6 +39,15 @@ export default function Signup() {
           type="password"
         id="wd-password"
         />
+      <Form.Select
+        value={user.role || "STUDENT"}
+        onChange={(e) => setUser({ ...user, role: e.target.value })}
+        className="wd-role mb-2"
+        id="wd-role"
+      >
+        <option value="STUDENT">Student</option>
+        <option value="FACULTY">Faculty</option>
+      </Form.Select>
       <Button onClick={signup} className="wd-signup-btn btn btn-primary mb-2 w-100" id="wd-signup-btn">
         Sign up
       </Button>
