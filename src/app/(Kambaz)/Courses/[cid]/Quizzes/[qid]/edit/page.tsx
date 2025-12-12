@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { Form, Button, Tabs, Tab, Row, Col } from "react-bootstrap";
 import * as quizzesClient from "../../client";
-import type { Quiz } from "../../client";
+import type { Quiz, Question } from "../../client";
 import QuestionEditor from "./QuestionEditor";
 
 export default function QuizEditor() {
@@ -283,7 +283,7 @@ function QuestionsTab({ quiz, setQuiz }: { quiz: Partial<Quiz>; setQuiz: (quiz: 
     setEditingQuestionIndex((quiz.questions?.length || 0));
   };
 
-  const saveQuestion = (question: any) => {
+  const saveQuestion = (question: Question) => {
     const updatedQuestions = [...(quiz.questions || [])];
     if (editingQuestionIndex !== null) {
       updatedQuestions[editingQuestionIndex] = question;

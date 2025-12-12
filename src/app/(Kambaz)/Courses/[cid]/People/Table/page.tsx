@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams } from "next/navigation";
 import { FormControl } from "react-bootstrap";
 import PeopleTable from "../Table";
@@ -23,11 +23,11 @@ export default function PeopleTablePage() {
   const [name, setName] = useState("");
   const { cid } = useParams();
 
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     if (!cid) return;
     const enrolledUsers = await coursesClient.findUsersForCourse(cid as string);
     setUsers(enrolledUsers);
-  };
+  }, [cid]);
 
   const filterUsersByRole = async (role: string) => {
     setRole(role);
@@ -56,7 +56,7 @@ export default function PeopleTablePage() {
 
   useEffect(() => {
     fetchUsers();
-  }, [cid]);
+  }, [fetchUsers]);
 
   return (
     <div>

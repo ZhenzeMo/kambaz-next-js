@@ -13,7 +13,7 @@ interface Question {
   type: "MC" | "TF" | "FIB";
   title: string;
   points: number;
-  questionHtml: string;
+  questionHtml?: string;
   choices?: Choice[];
   correctAnswer?: boolean;
   acceptableAnswers?: string[];
@@ -22,6 +22,13 @@ interface Question {
 interface QuestionEditorProps {
   question: Question;
   onSave: (question: Question) => void;
+  onCancel: () => void;
+}
+
+interface EditorProps {
+  question: Question;
+  setQuestion: (question: Question) => void;
+  onSave: () => void;
   onCancel: () => void;
 }
 
@@ -47,7 +54,7 @@ export default function QuestionEditor({ question, onSave, onCancel }: QuestionE
   return null;
 }
 
-function MCEditor({ question, setQuestion, onSave, onCancel }: any) {
+function MCEditor({ question, setQuestion, onSave, onCancel }: EditorProps) {
   const addChoice = () => {
     const newChoice: Choice = {
       id: String.fromCharCode(65 + (question.choices?.length || 0)),
@@ -92,7 +99,7 @@ function MCEditor({ question, setQuestion, onSave, onCancel }: any) {
           />
           <Form.Select
             value={question.type}
-            onChange={(e) => setQuestion({ ...question, type: e.target.value as any })}
+            onChange={(e) => setQuestion({ ...question, type: e.target.value as "MC" | "TF" | "FIB" })}
             style={{ maxWidth: "200px" }}
           >
             <option value="MC">Multiple Choice</option>
@@ -119,7 +126,7 @@ function MCEditor({ question, setQuestion, onSave, onCancel }: any) {
         <Form.Control
           as="textarea"
           rows={3}
-          value={question.questionHtml}
+          value={question.questionHtml || ""}
           onChange={(e) => setQuestion({ ...question, questionHtml: e.target.value })}
         />
       </Form.Group>
@@ -173,7 +180,7 @@ function MCEditor({ question, setQuestion, onSave, onCancel }: any) {
   );
 }
 
-function TFEditor({ question, setQuestion, onSave, onCancel }: any) {
+function TFEditor({ question, setQuestion, onSave, onCancel }: EditorProps) {
   return (
     <div className="border rounded p-4 mb-3">
       <div className="d-flex justify-content-between align-items-center mb-3">
@@ -187,7 +194,7 @@ function TFEditor({ question, setQuestion, onSave, onCancel }: any) {
           />
           <Form.Select
             value={question.type}
-            onChange={(e) => setQuestion({ ...question, type: e.target.value as any })}
+            onChange={(e) => setQuestion({ ...question, type: e.target.value as "MC" | "TF" | "FIB" })}
             style={{ maxWidth: "200px" }}
           >
             <option value="MC">Multiple Choice</option>
@@ -214,7 +221,7 @@ function TFEditor({ question, setQuestion, onSave, onCancel }: any) {
         <Form.Control
           as="textarea"
           rows={3}
-          value={question.questionHtml}
+          value={question.questionHtml || ""}
           onChange={(e) => setQuestion({ ...question, questionHtml: e.target.value })}
         />
       </Form.Group>
@@ -261,7 +268,7 @@ function TFEditor({ question, setQuestion, onSave, onCancel }: any) {
   );
 }
 
-function FIBEditor({ question, setQuestion, onSave, onCancel }: any) {
+function FIBEditor({ question, setQuestion, onSave, onCancel }: EditorProps) {
   const addAnswer = () => {
     setQuestion({
       ...question,
@@ -276,7 +283,7 @@ function FIBEditor({ question, setQuestion, onSave, onCancel }: any) {
   };
 
   const removeAnswer = (index: number) => {
-    const updatedAnswers = question.acceptableAnswers?.filter((_: any, i: number) => i !== index);
+    const updatedAnswers = question.acceptableAnswers?.filter((_, i) => i !== index);
     setQuestion({ ...question, acceptableAnswers: updatedAnswers });
   };
 
@@ -293,7 +300,7 @@ function FIBEditor({ question, setQuestion, onSave, onCancel }: any) {
           />
           <Form.Select
             value={question.type}
-            onChange={(e) => setQuestion({ ...question, type: e.target.value as any })}
+            onChange={(e) => setQuestion({ ...question, type: e.target.value as "MC" | "TF" | "FIB" })}
             style={{ maxWidth: "200px" }}
           >
             <option value="MC">Multiple Choice</option>
@@ -321,7 +328,7 @@ function FIBEditor({ question, setQuestion, onSave, onCancel }: any) {
         <Form.Control
           as="textarea"
           rows={3}
-          value={question.questionHtml}
+          value={question.questionHtml || ""}
           onChange={(e) => setQuestion({ ...question, questionHtml: e.target.value })}
         />
       </Form.Group>

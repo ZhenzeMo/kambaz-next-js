@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { Button, Card, Alert, Form, ProgressBar } from "react-bootstrap";
 import { RootState } from "../../../../../store";
 import * as quizzesClient from "../../client";
-import type { Quiz } from "../../client";
+import type { Quiz, QuizAttempt } from "../../client";
 import axios from "axios";
 
 const HTTP_SERVER = process.env.NEXT_PUBLIC_HTTP_SERVER;
@@ -17,8 +17,8 @@ export default function TakeQuiz() {
   const { currentUser } = useSelector((state: RootState) => state.accountReducer);
   
   const [quiz, setQuiz] = useState<Quiz | null>(null);
-  const [attempts, setAttempts] = useState<any[]>([]);
-  const [answers, setAnswers] = useState<{ [key: string]: any }>({});
+  const [attempts, setAttempts] = useState<QuizAttempt[]>([]);
+  const [answers, setAnswers] = useState<{ [key: string]: string | boolean }>({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [started, setStarted] = useState(false);
   const [startTime, setStartTime] = useState<Date | null>(null);
@@ -69,7 +69,7 @@ export default function TakeQuiz() {
     setStartTime(new Date());
   };
 
-  const handleAnswerChange = (questionId: string, answer: any) => {
+  const handleAnswerChange = (questionId: string, answer: string | boolean) => {
     setAnswers({ ...answers, [questionId]: answer });
   };
 
@@ -217,6 +217,7 @@ export default function TakeQuiz() {
       <div className="row">
         <div className="col-md-9">
           {questionsToShow.map((question, index) => {
+        if (!question) return null;
         const actualIndex = quiz.oneQuestionAtATime ? currentQuestionIndex : index;
         
         return (
@@ -268,7 +269,7 @@ export default function TakeQuiz() {
                 <Form.Control
                   type="text"
                   placeholder="Enter your answer"
-                  value={answers[question._id!] || ""}
+                  value={(typeof answers[question._id!] === "string" ? answers[question._id!] : "") as string}
                   onChange={(e) => handleAnswerChange(question._id!, e.target.value)}
                 />
               )}

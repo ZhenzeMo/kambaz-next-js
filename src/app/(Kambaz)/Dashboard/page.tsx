@@ -152,7 +152,7 @@ export default function Dashboard() {
       {!isFaculty && !hasEnrollments && !showAllCourses && (
         <Alert variant="info">
           <h5>Welcome! You are not enrolled in any courses yet.</h5>
-          <p>Click the "Browse All Courses" button above to see available courses and enroll.</p>
+          <p>Click the &quot;Browse All Courses&quot; button above to see available courses and enroll.</p>
         </Alert>
       )}
       <h2 id="wd-dashboard-published">

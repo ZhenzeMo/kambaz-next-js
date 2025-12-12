@@ -71,25 +71,32 @@ export const createQuiz = async (quiz: Partial<Quiz>): Promise<Quiz> => {
   return response.data;
 };
 
-export const updateQuiz = async (quiz: Partial<Quiz> & { _id: string }): Promise<any> => {
+export const updateQuiz = async (quiz: Partial<Quiz> & { _id: string }): Promise<Quiz> => {
   const response = await axiosWithCredentials.put(`${QUIZZES_API}/${quiz._id}`, quiz);
   return response.data;
 };
 
-export const deleteQuiz = async (quizId: string): Promise<any> => {
-  const response = await axiosWithCredentials.delete(`${QUIZZES_API}/${quizId}`);
-  return response.data;
+export const deleteQuiz = async (quizId: string): Promise<void> => {
+  await axiosWithCredentials.delete(`${QUIZZES_API}/${quizId}`);
 };
 
-export const publishQuiz = async (quizId: string): Promise<any> => {
+export const publishQuiz = async (quizId: string): Promise<Quiz> => {
   const response = await axiosWithCredentials.put(`${QUIZZES_API}/${quizId}/publish`, {});
   return response.data;
 };
 
-export const unpublishQuiz = async (quizId: string): Promise<any> => {
+export const unpublishQuiz = async (quizId: string): Promise<Quiz> => {
   const response = await axiosWithCredentials.put(`${QUIZZES_API}/${quizId}/unpublish`, {});
   return response.data;
 };
+
+export interface QuizAttemptAnswer {
+  question: string;
+  isCorrect: boolean;
+  earnedPoints: number;
+  selectedChoiceId?: string;
+  answer?: boolean | string;
+}
 
 export interface QuizAttempt {
   _id: string;
@@ -100,7 +107,7 @@ export interface QuizAttempt {
   maxScore: number;
   startedAt: string;
   submittedAt: string;
-  answers: any[];
+  answers: QuizAttemptAnswer[];
 }
 
 export const getStudentAttempts = async (quizId: string, studentId: string): Promise<QuizAttempt[]> => {

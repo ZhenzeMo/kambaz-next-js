@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { Button, Card, Alert, Badge } from "react-bootstrap";
 import { RootState } from "../../../../../../store";
 import * as quizzesClient from "../../../client";
-import type { Quiz } from "../../../client";
+import type { Quiz, QuizAttempt } from "../../../client";
 import axios from "axios";
 
 const HTTP_SERVER = process.env.NEXT_PUBLIC_HTTP_SERVER;
@@ -17,8 +17,8 @@ export default function AttemptDetails() {
   const { currentUser } = useSelector((state: RootState) => state.accountReducer);
   
   const [quiz, setQuiz] = useState<Quiz | null>(null);
-  const [attempt, setAttempt] = useState<any>(null);
-  const [allAttempts, setAllAttempts] = useState<any[]>([]);
+  const [attempt, setAttempt] = useState<QuizAttempt | null>(null);
+  const [allAttempts, setAllAttempts] = useState<QuizAttempt[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -52,12 +52,8 @@ export default function AttemptDetails() {
     return allAttempts.length < (quiz.maxAttempts || 1);
   };
 
-  const getQuestionById = (questionId: string) => {
-    return quiz?.questions?.find((q) => q._id === questionId);
-  };
-
   const getAnswerForQuestion = (questionId: string) => {
-    return attempt?.answers?.find((a: any) => a.question === questionId);
+    return attempt?.answers?.find((a) => a.question === questionId);
   };
 
   if (loading) {

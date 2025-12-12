@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Dropdown } from "react-bootstrap";
-import { BsGripVertical, BsThreeDotsVertical } from "react-icons/bs";
-import { FaCheckCircle, FaBan } from "react-icons/fa";
+import { BsGripVertical } from "react-icons/bs";
+import { FaCheckCircle } from "react-icons/fa";
 import { RiProhibitedLine } from "react-icons/ri";
 import { IoEllipsisVertical, IoRocketSharp } from "react-icons/io5";
 import Link from "next/link";
